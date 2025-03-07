@@ -1,25 +1,8 @@
-import math
-
-def calcular_area(cultura, dimensoes):
-    if cultura == "soja":
-        return dimensoes[0] * dimensoes[1]  # Retângulo (base * altura)
-    elif cultura == "milho":
-        return math.pi * (dimensoes[0] ** 2)  # Círculo (pi * raio^2)
-    else:
-        return None
-
-def calcular_insumos(cultura, produto, quantidade_por_metro, total_metros):
-    return quantidade_por_metro * total_metros
-
-def exibir_menu():
-    print("\nMenu de Opções:")
-    print("1. Adicionar dados de plantio")
-    print("2. Exibir dados de plantio")
-    print("3. Atualizar dados de plantio")
-    print("4. Deletar dados de plantio")
-    print("5. Sair")
+from src.menu import exibir_menu
+from src.engine import get_form_plantio, save_json, load_json
 
 dados_plantio = []
+
 
 def run_project():
 
@@ -28,45 +11,33 @@ def run_project():
         try:
 
             opcao = input("Escolha uma opção: ")
-            
+
             if opcao == "1":
-                cultura = input("Informe a cultura (soja/milho): ").lower()
-                if cultura not in ["soja", "milho"]:
-                    print("Cultura inválida!")
-                    continue
                 
-                if cultura == "soja":
-                    largura = float(input("Informe a largura da área em metros: "))
-                    comprimento = float(input("Informe o comprimento da área em metros: "))
-                    dimensoes = (largura, comprimento)
-                else:
-                    raio = float(input("Informe o raio da área em metros: "))
-                    dimensoes = (raio,)
-                
-                area = calcular_area(cultura, dimensoes)
-                produto = input("Informe o produto para manejo: ")
-                quantidade_por_metro = float(input("Quantidade por metro: "))
-                total_metros = float(input("Total de metros a serem tratados: "))
-                insumos = calcular_insumos(cultura, produto, quantidade_por_metro, total_metros)
-                
-                dados_plantio.append({"cultura": cultura, "area": area, "produto": produto, "insumos": insumos})
+                dados_plantio.append(get_form_plantio())
+                save_json(dados_plantio)
                 print("Dados adicionados com sucesso!")
-            
+
             elif opcao == "2":
+                if not dados_plantio:
+                    print("Por favor, volte e preencha os dados na opção 1.")
                 for i, dado in enumerate(dados_plantio):
-                    print(f"{i}: Cultura: {dado['cultura']}, Área: {dado['area']:.2f} m², Produto: {dado['produto']}, Insumos necessários: {dado['insumos']:.2f}")
-            
+                    print(
+                        f"{i}: Cultura: {dado['cultura']}, Área: {dado['area']:.2f} m², Produto: {dado['produto']}, Insumos necessários: {dado['insumos']:.2f}")
+
             elif opcao == "3":
                 indice = int(input("Informe o índice do dado a atualizar: "))
                 if 0 <= indice < len(dados_plantio):
-                    novo_produto = input("Novo produto: ")
-                    nova_quantidade = float(input("Nova quantidade de insumo: "))
-                    dados_plantio[indice]["produto"] = novo_produto
-                    dados_plantio[indice]["insumos"] = nova_quantidade
+                    plantio_obj = get_form_plantio()
+                    dados_plantio[indice]["area"] = plantio_obj["area"]
+                    dados_plantio[indice]["cultura"] = plantio_obj["cultura"]
+                    dados_plantio[indice]["produto"] = plantio_obj["produto"]
+                    dados_plantio[indice]["insumos"] = plantio_obj["insumos"]
+                    save_json(dados_plantio)
                     print("Dados atualizados com sucesso!")
                 else:
                     print("Índice inválido!")
-            
+
             elif opcao == "4":
                 indice = int(input("Informe o índice do dado a excluir: "))
                 if 0 <= indice < len(dados_plantio):
@@ -74,7 +45,7 @@ def run_project():
                     print("Dado removido com sucesso!")
                 else:
                     print("Índice inválido!")
-            
+
             elif opcao == "5":
                 print("Saindo do programa...")
                 break
@@ -86,4 +57,11 @@ def run_project():
 
 
 if __name__ == "__main__":
+    try:
+        loaded_data = load_json()
+        if loaded_data:
+            dados_plantio = loaded_data
+    except:
+        print("falha ao carregar dados")
+
     run_project()
