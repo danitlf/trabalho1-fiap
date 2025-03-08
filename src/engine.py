@@ -3,6 +3,7 @@ import json
 
 LOAD_FILENAME = "storage.json"
 
+
 def save_json(obj):
     """Saves a Python object as a JSON file."""
     try:
@@ -10,6 +11,7 @@ def save_json(obj):
             json.dump(obj, file, ensure_ascii=False, indent=4)
     except Exception as e:
         print(f"An error occurred while saving the file: {e}")
+
 
 def load_json():
     """Loads a JSON file into a Python object."""
@@ -23,6 +25,7 @@ def load_json():
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
+
 def calcular_area(cultura, dimensoes):
     if cultura == "soja":
         return dimensoes[0] * dimensoes[1]  # Retângulo (base * altura)
@@ -32,8 +35,9 @@ def calcular_area(cultura, dimensoes):
         return None
 
 
-def calcular_insumos(cultura, produto, quantidade_por_metro, total_metros):
+def calcular_insumos(quantidade_por_metro, total_metros):
     return quantidade_por_metro * total_metros
+
 
 def get_form_plantio():
     cultura = input("Informe a cultura (soja/milho): ").lower()
@@ -56,6 +60,6 @@ def get_form_plantio():
     insumos = calcular_insumos(
         cultura, produto, quantidade_por_metro, area)
 
-    
-    plantio_obj = {"cultura": cultura, "area": area, "produto": produto, "insumos": insumos}
+    plantio_obj = {"cultura": cultura, "area": area,
+                   "produto": produto, "insumos": insumos}
     return plantio_obj
