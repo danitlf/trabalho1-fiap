@@ -1,5 +1,5 @@
 
- 
+   
 def exibir_menu():
     print("\nMenu de Opções:")
     print("1. Adicionar dados de plantio")
