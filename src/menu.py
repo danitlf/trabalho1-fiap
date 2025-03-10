@@ -6,5 +6,6 @@ def exibir_menu():
     print("2. Exibir dados de plantio")
     print("3. Atualizar dados de plantio")
     print("4. Deletar dados de plantio")
-    print("5. Sair")
+    print("5. Mostrar estatísicas")
+    print("6. Sair")
 
