@@ -2,7 +2,7 @@ import math
 import json
 
 LOAD_FILENAME = "storage.json"
-
+LARGURA_RUA = 1
 
 def save_json(obj):
     """Saves a Python object as a JSON file."""
@@ -34,6 +34,23 @@ def calcular_area(cultura, dimensoes):
     else:
         return None
 
+def calcular_ruas(cultura, dimensoes):
+    quantidade_ruas = 0
+    if cultura == "soja":
+        maior_dimensao = dimensoes[0]
+        menor_dimensao = dimensoes[1]
+        if dimensoes[1] > dimensoes[0]:
+            maior_dimensao = dimensoes[1]
+            menor_dimensao = dimensoes[0]
+
+        quantidade_ruas = menor_dimensao / 5
+        return quantidade_ruas, (quantidade_ruas * maior_dimensao * LARGURA_RUA)  # Retângulo (base * altura)
+    elif cultura == "milho":
+        quantidade_ruas = 2
+        return quantidade_ruas, (dimensoes[0] * quantidade_ruas * LARGURA_RUA)
+    else:
+        return None
+
 
 def calcular_insumos(quantidade_por_metro, total_metros):
     return quantidade_por_metro * total_metros
@@ -54,12 +71,18 @@ def get_form_plantio():
         raio = float(input("Informe o raio da área em metros: "))
         dimensoes = (raio,)
 
-    area = calcular_area(cultura, dimensoes)
+    area_total = calcular_area(cultura, dimensoes)
+    quantidade_ruas, area_rua = calcular_ruas(cultura, dimensoes)
     produto = input("Informe o produto para manejo: ")
     quantidade_por_metro = float(input("Quantidade em ml por m²: "))
-    insumos = calcular_insumos(
-        cultura, produto, quantidade_por_metro, area)
+    area_util = area_total - area_rua
+    insumos = calcular_insumos(convert_ml_to_l(quantidade_por_metro, (area_total - area_rua )))
 
-    plantio_obj = {"cultura": cultura, "area": area,
-                   "produto": produto, "insumos": insumos}
+    plantio_obj = {"cultura": cultura, "area_total": area_total,
+                   "produto": produto, "insumos": insumos,
+                   "quantidade_ruas": quantidade_ruas, "area_rua": area_rua,
+                   "area_util": area_util}
     return plantio_obj
+
+def convert_ml_to_l(ml):
+    return ml/1000
