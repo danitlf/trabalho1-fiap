@@ -5,7 +5,7 @@ install.packages("jsonlite", repos="https://cran.rstudio.com/")
 library(jsonlite)
 
 # Read the JSON file
-data <- fromJSON(readLines("../trabalho1-fiap/storage.json", warn = FALSE, encoding = "UTF-8"))
+data <- fromJSON(readLines("storage.json", warn = FALSE, encoding = "UTF-8"))
 
 
 # View the data
