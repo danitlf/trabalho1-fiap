@@ -3,13 +3,19 @@
 required_packages <- c("plumber", "httr", "jsonlite")
 for (pkg in required_packages) {
     if (!require(pkg, character.only = TRUE)) {
-        install.packages(pkg, dependencies = TRUE)
+        install.packages(pkg, dependencies = TRUE, repos="https://cran.rstudio.com/")
         library(pkg, character.only = TRUE)
     }
 }
 
-source("../trabalho1-fiap/projeto_r/webservices/weatherWS.R")
-source("../trabalho1-fiap/projeto_r/webservices/locationWS.R")
+httr::set_config(httr::config(ssl_verifypeer = 0L))
+
+args <- commandArgs(trailingOnly = TRUE)
+cidade <- args[1]
+
+source("projeto_r/webservices/weatherWS.R")
+source("projeto_r/webservices/locationWS.R")
+
 
 get_weather_for_location <- function(city_name) {
     location <- get_location(city_name)
@@ -34,4 +40,4 @@ get_weather_for_location <- function(city_name) {
         elevation = weather$elevation
     ))
 }
-get_weather_for_location("Louveira")
+get_weather_for_location(cidade)
