@@ -62,8 +62,16 @@ def run_project():
                 resultado = subprocess.run(["Rscript", "projeto_r/main.R"], capture_output=True, text=True)
                 print("Executando programa em R para estatísticas")
                 print(resultado.stdout)  # Exibe a saída
-                
+
+            
             elif opcao == "6":
+                cidade = input("Informe a cidade: ")
+                resultado = subprocess.run(["Rscript", "projeto_r/services/weatherLocationService.R", cidade], capture_output=True, text=True)
+                print("Executando programa em R para dados climáticos")
+                print(resultado.stdout)  # Exibe a saída
+
+                
+            elif opcao == "7":
                 print("Saindo do programa...")
                 break
             else:
