@@ -27,7 +27,7 @@ def run_project():
                         f"{i}\n Cultura: {dado['cultura']}\n",
                             f"Área: {dado['area_total']:.2f} m²\n",
                             f"Produto: {dado['produto']}\n",
-                            f"Insumos necessários: {convert_ml_to_l(dado['insumos']):.2f} Litros\n",
+                            f"Insumos necessários: {dado['insumos']:.2f} Litros\n",
                             f"Número de Ruas: {int(dado['quantidade_ruas'])}\n",
                             f"Área das Ruas: {dado['area_rua']}\n",
                             f"Área Útil: {dado['area_util']}\n"

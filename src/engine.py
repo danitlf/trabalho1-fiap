@@ -76,7 +76,7 @@ def get_form_plantio():
     produto = input("Informe o produto para manejo: ")
     quantidade_por_metro = float(input("Quantidade em ml por m²: "))
     area_util = area_total - area_rua
-    insumos = calcular_insumos(convert_ml_to_l(quantidade_por_metro, (area_total - area_rua )))
+    insumos = calcular_insumos(convert_ml_to_l(quantidade_por_metro), (area_total - area_rua ))
 
     plantio_obj = {"cultura": cultura, "area_total": area_total,
                    "produto": produto, "insumos": insumos,
