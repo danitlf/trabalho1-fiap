@@ -1,56 +1,72 @@
-🌱 Projeto de Programa de Plantio com Estatísticas em R
+# Projeto de Gestão de Plantio e Análises Climáticas
 
-📌 Sobre o Projeto
+Este projeto combina **Python** e **R** para gerenciar dados de plantio e executar análises estatísticas e climáticas.
 
-Este projeto implementa um sistema de gerenciamento de plantio utilizando Python para o processamento de dados e R para análise estatística. O objetivo é otimizar a produção agrícola, fornecendo insights baseados em dados sobre crescimento, produtividade e condições climáticas.
+## 📁 Estrutura do Projeto
 
-🛠️ Tecnologias Utilizadas
+```
+projeto_r/
+│── services/
+│   └── weatherLocationService.R
+│── webservices/
+│   ├── locationWS.R
+│   ├── weatherWS.R
+│   └── main.R
+│── src/
+│   ├── __pycache__/
+│   ├── engine.py
+│   ├── menu.py
+│── tb1-env/
+│── .gitignore
+│── main.py
+│── requirements.txt
+│── storage.json
+```
 
-Python: Processamento de dados e integração com R.
+- **`main.py`**: Arquivo principal que gerencia o fluxo do programa.
+- **`src/engine.py`**: Funções para manipulação dos dados de plantio.
+- **`src/menu.py`**: Exibição do menu interativo.
+- **`projeto_r/`**: Scripts em **R** para análises estatísticas e climáticas.
+- **`storage.json`**: Armazena os dados de plantio.
+- **`requirements.txt`**: Dependências do projeto.
 
-R: Análise estatística e modelagem dos dados agrícolas.
+## 🚀 Como Executar
 
-pandas: Manipulação de dados.
+### 1️⃣ Instalar Dependências
 
-matplotlib/seaborn: Visualização de dados.
+```bash
+pip install -r requirements.txt
+```
 
-subprocess: Chamada de scripts R a partir do Python.
+### 2️⃣ Executar o Projeto
 
-ggplot2 (R): Gráficos estatísticos.
+```bash
+python main.py
+```
 
-dplyr (R): Manipulação de dados.
+## 🔧 Funcionalidades
 
-🚀 Funcionalidades
+1. **Adicionar dados de plantio**  
+2. **Visualizar dados cadastrados**  
+3. **Atualizar dados existentes**  
+4. **Excluir registros**  
+5. **Executar análises estatísticas (R)**  
+6. **Obter dados climáticos de uma cidade (R)**  
+7. **Sair do programa**  
 
-Cálculo de produtividade com base em dados históricos.
+## 📊 Execução de Scripts em R
 
-Análise de impacto do clima no crescimento das plantas.
+Os scripts em **R** podem ser acionados pelo `main.py` para:
+- **Estatísticas de plantio:** `projeto_r/main.R`
+- **Dados climáticos por cidade:** `projeto_r/services/weatherLocationService.R`
 
-Predição de rendimento usando modelos estatísticos em R.
+## 📌 Observações
+- Os dados de plantio são armazenados em `storage.json`.
+- O programa requer **Python 3.x** e **R instalado no sistema** para executar os scripts.
 
-Visualização de tendências e padrões.
+---
 
-📂 Estrutura do Projeto
+Desenvolvido para integração entre **Python** e **R**, facilitando o gerenciamento agrícola e análises meteorológicas. 🌱🌤️
+```
 
-▶️ Como Executar
-
-Instale as dependências
-
-Instale os pacotes do R (caso não tenha)
-
-Execute o script Python
-
-🔄 Exemplo de Integração Python e R
-
-O script Python chama o R para análise estatística usando subprocess.run():
-
-No R:
-
-📌 Contribuição
-
-Sinta-se à vontade para contribuir com melhorias! Basta abrir um PR ou relatar um problema.
-
-📜 Licença
-
-Este projeto está licenciado sob a MIT License. Veja o arquivo LICENSE para mais detalhes.
-
+Esse README fornece uma visão geral do projeto, suas funcionalidades e como executá-lo. Quer adicionar algo específico? 🚀
